@@ -28,7 +28,7 @@ int main() {
 
     WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), "Enter file name: ", strlen("Enter file name: "), &bytesWritten, NULL);
     ReadFile(GetStdHandle(STD_INPUT_HANDLE), fileName, BUFFER_SIZE, &bytesRead, NULL);
-    fileName[bytesRead - 1] = '\0';
+    fileName[bytesRead - 2] = '\0';
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;

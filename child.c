@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
         return ERROR_CREATE_PIPE;
     }
 
-    hFile = CreateFileW(((wchar_t*)(fileName)), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    hFile = CreateFile(((fileName)), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (hFile == INVALID_HANDLE_VALUE) {
         CloseHandle(hPipe1);
