@@ -61,10 +61,6 @@ int main(int argc, char* argv[]) {
     int result = numbers[0];
     char* write = (char*)malloc(BUFFER_SIZE * sizeof(char*));
 
-
-    //Проверка на память
-
-
     for (int i = 1; i < count; i++) {
         if (numbers[i] == 0) {
             WriteFile(hPipe2, "DIVIDE_BY_ZERO", strlen("DIVIDE_BY_ZERO"), &bytesWritten, NULL);

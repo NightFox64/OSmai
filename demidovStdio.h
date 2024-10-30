@@ -20,56 +20,12 @@ enum ret_type_t{
     ERROR_HEAP,         //Failed to malloc
 };
 
-//Use to get
-char* demidov_getline(HANDLE hFile) {
-    int bufferSize = INITIAL_BUFFER_SIZE;
-    char* buffer = (char*)HeapAlloc(GetProcessHeap(), 0, bufferSize);
-    if (buffer == NULL) {
-        return NULL;
-    }
-
-    int pos = 0;
-    while (1) {
-        if (pos >= bufferSize - 1) {
-            bufferSize *= 2;
-            char* newBuffer = (char*)HeapReAlloc(GetProcessHeap(), 0, buffer, bufferSize);
-            if (newBuffer == NULL) {
-                HeapFree(GetProcessHeap(), 0, buffer);
-                return NULL;
-            }
-            buffer = newBuffer;
-        }
-
-        DWORD bytesRead;
-        if (!ReadFile(hFile, buffer + pos, 1, &bytesRead, NULL)) {
-            HeapFree(GetProcessHeap(), 0, buffer);
-            return NULL;
-        }
-
-        if (bytesRead == 0) {
-            if (pos == 0) {
-                HeapFree(GetProcessHeap(), 0, buffer);
-                return NULL;
-            }
-            buffer[pos] = '\0';
-            return buffer;
-        }
-
-        if (buffer[pos] == '\n') {
-            buffer[pos] = '\0';
-            return buffer;
-        }
-
-        pos++;
-    }
-}
-
 //THE MOST POWERFUL PRINTF IN HISTORY
 void demidov_printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
 
-    char buffer[1024]; // Buffer to hold the formatted string
+    char buffer[1024];
     char* buf_ptr = buffer;
     const char* fmt_ptr = format;
     int buffer_size = sizeof(buffer);
@@ -80,7 +36,7 @@ void demidov_printf(const char *format, ...) {
             switch (*fmt_ptr) {
                 case 'd': {
                     int value = va_arg(args, int);
-                    char num_buffer[20]; // Buffer to hold the integer as a string
+                    char num_buffer[20];
                     char* num_ptr = num_buffer;
                     if (value < 0) {
                         *buf_ptr++ = '-';
@@ -120,7 +76,7 @@ void demidov_printf(const char *format, ...) {
         }
         fmt_ptr++;
     }
-    *buf_ptr = '\0'; // Null-terminate the buffer
+    *buf_ptr = '\0';
 
     va_end(args);
 
@@ -134,7 +90,7 @@ int demidov_file_printf(HANDLE fileHandle, const char *format, ...) {
     va_list args;
     va_start(args, format);
 
-    char buffer[1024]; // Buffer to hold the formatted string
+    char buffer[1024];
     char* buf_ptr = buffer;
     const char* fmt_ptr = format;
     int buffer_size = sizeof(buffer);
@@ -145,7 +101,7 @@ int demidov_file_printf(HANDLE fileHandle, const char *format, ...) {
             switch (*fmt_ptr) {
                 case 'd': {
                     int value = va_arg(args, int);
-                    char num_buffer[20]; // Buffer to hold the integer as a string
+                    char num_buffer[20];
                     char* num_ptr = num_buffer;
                     if (value < 0) {
                         *buf_ptr++ = '-';
@@ -185,12 +141,11 @@ int demidov_file_printf(HANDLE fileHandle, const char *format, ...) {
         }
         fmt_ptr++;
     }
-    *buf_ptr = '\0'; // Null-terminate the buffer
+    *buf_ptr = '\0';
 
     // Open the file for writing
     DWORD bytesWritten;
     WriteFile(fileHandle, buffer, (DWORD)(buf_ptr - buffer), &bytesWritten, NULL);
 
     va_end(args);
-    //CloseHandle(fileHandle);
 }
