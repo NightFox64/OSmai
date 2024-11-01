@@ -13,7 +13,10 @@ int main(int argc, char* argv[]) {
     DWORD bytesRead, bytesWritten;
     char* fileName = (char*)malloc(BUFFER_SIZE * sizeof(char*));
 
-    //Проверка на память
+    if (fileName == NULL){
+        demidov_printf("Failed to malloc\n");
+        return ERROR_MALLOC;
+    }
 
 
     HANDLE hFile;

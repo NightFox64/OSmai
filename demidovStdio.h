@@ -18,6 +18,7 @@ enum ret_type_t{
     ERROR_HANDLER_INHERITED, //Error handler reading
     ERROR_PIPE_WRITE,   //Failed to write smth in the pipe
     ERROR_HEAP,         //Failed to malloc
+    ERROR_MALLOC,       //Failed to malloc
 };
 
 //THE MOST POWERFUL PRINTF IN HISTORY
