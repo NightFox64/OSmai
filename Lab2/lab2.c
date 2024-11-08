@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
 
     int arraySize = atoi(argv[1]);
     int maxThreads = atoi(argv[2]);
+    clock_t start = clock();
 
     if (arraySize == 0) {
         demidov_printf("The array is empty. Cannot sort a void\n");
@@ -130,7 +131,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < maxThreads; i++) {
         threadData[i].array = array;
         threadData[i].start = i * chunkSize;
-        threadData[i].end = (((i + 1) * chunkSize - 1) >= arraySize - chunkSize - 1) ? arraySize - 1 : (i + 1) * chunkSize - 1;
+        threadData[i].end = (i == maxThreads - 1) ? arraySize - 1 : (i + 1) * chunkSize - 1;
 
         WaitForSingleObject(semaphore, INFINITE);
 
@@ -168,5 +169,8 @@ int main(int argc, char* argv[]) {
     free(array);
 
     demidov_printf("Sorting completed successfully\n");
+    clock_t end = clock();
+    float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    demidov_printf("Time: %f sec\n", seconds);
     return 0;
 }

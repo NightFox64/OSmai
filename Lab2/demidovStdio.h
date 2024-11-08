@@ -57,6 +57,35 @@ void demidov_printf(const char *format, ...) {
                     }
                     break;
                 }
+                case 'f': {
+                    double value = va_arg(args, double);
+                    char num_buffer[20];
+                    char* num_ptr = num_buffer;
+                    if (value < 0) {
+                        *buf_ptr++ = '-';
+                        value = -value;
+                    }
+
+                    int afterDot = (value - (int)value) * 10000000;
+                    int beforeDot = (int)value;
+
+                    do {
+                        *num_ptr++ = (char)((afterDot % 10) + '0');
+                        afterDot /= 10;
+                    } while (afterDot > 0);
+
+                    *num_ptr++ = '.';
+
+                    do {
+                        *num_ptr++ = (char)((beforeDot % 10) + '0');
+                        beforeDot /= 10;
+                    } while (beforeDot > 0);
+
+                    while (num_ptr > num_buffer) {
+                        *buf_ptr++ = *--num_ptr;
+                    }
+                    break;
+                }
                 case 's': {
                     char* str = va_arg(args, char*);
                     while (*str) {
