@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < arraySize - 1; i++) {
         if (array[i] > array[i + 1]) {
-            demidov_printf("Sorting failed at index %d\n", i);
+            demidov_printf("\nSorting failed at index %d\n", i);
             break;
         }
     }
