@@ -66,7 +66,7 @@ void demidov_printf(const char *format, ...) {
                         value = -value;
                     }
 
-                    int afterDot = (value - (int)value) * 10000000;
+                    int afterDot = (value - (int)value) * 100000000;
                     int beforeDot = (int)value;
 
                     do {
