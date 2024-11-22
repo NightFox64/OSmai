@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     HANDLE hSemParent = OpenSemaphore(SEMAPHORE_ALL_ACCESS, FALSE, "SemaphoreParent");
     HANDLE hSemChild = OpenSemaphore(SEMAPHORE_ALL_ACCESS, FALSE, "SemaphoreChild");
     if (hMapFile == NULL || hSemParent == NULL || hSemChild == NULL) {
-        demidov_printf("Failed to open shared memory or semaphore\n");
+        demidov_printf("Failed to open file mapping or semaphore\n");
         return ERROR_OPEN_FILE_MAPPING;
     }
 
