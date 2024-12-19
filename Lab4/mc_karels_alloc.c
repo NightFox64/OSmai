@@ -6,13 +6,6 @@
 #define EXPORT
 #endif
 
-typedef struct Allocator {
-    void* memory;
-    size_t size;
-    size_t max_order;
-    uint8_t* free_blocks; // Битовая карта свободных блоков
-} Allocator;
-
 EXPORT size_t get_order(size_t size) {
     return (size_t)ceil(log2(size));
 }
