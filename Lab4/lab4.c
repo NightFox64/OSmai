@@ -1,9 +1,7 @@
-// Макросы и зависимости
 #include <windows.h>
 #include <stdint.h>
 #include "demidovStdio.h"
 
-// Интерфейс аллокатора
 typedef struct Allocator Allocator;
 
 typedef Allocator* (*allocator_create_func)(void* memory, size_t size);
@@ -93,7 +91,6 @@ void run_tests(const char* library_path) {
     FreeLibrary(library);
 }
 
-// Основная программа
 int main(int argc, char* argv[]) {
     HMODULE library = NULL;
     allocator_create_func allocator_create = NULL;

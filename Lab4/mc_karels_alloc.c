@@ -1,4 +1,3 @@
-// Аллокатор Двойников (buddy_alloc.c)
 #include "mc_karels_alloc.h"
 
 #ifdef _MSC_VER
@@ -27,7 +26,7 @@ EXPORT Allocator* allocator_create(void* memory, size_t size) {
 
     allocator->free_blocks = (uint8_t*)allocator->memory;
     for (size_t i = 0; i < bitmap_size; i++) {
-        allocator->free_blocks[i] = 0xFF; // Все блоки свободны
+        allocator->free_blocks[i] = 0xFF;
     }
 
     return allocator;
@@ -52,7 +51,7 @@ EXPORT void* allocator_alloc(Allocator* allocator, size_t size) {
         size_t bit_index = i % 8;
 
         if (allocator->free_blocks[byte_index] & (1 << bit_index)) {
-            allocator->free_blocks[byte_index] &= ~(1 << bit_index); // Занимаем блок
+            allocator->free_blocks[byte_index] &= ~(1 << bit_index);
             return (uint8_t*)allocator->memory + i * block_size;
         }
     }
@@ -69,7 +68,7 @@ EXPORT void allocator_free(Allocator* allocator, void* memory) {
         size_t byte_index = index / 8;
         size_t bit_index = index % 8;
 
-        allocator->free_blocks[byte_index] |= (1 << bit_index); // Освобождаем блок
+        allocator->free_blocks[byte_index] |= (1 << bit_index);
     } else {
         demidov_printf("Error: wrong memory adress.\n");
     }
