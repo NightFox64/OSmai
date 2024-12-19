@@ -7,6 +7,7 @@
 
 
 // Экспортируемые функции
+typedef struct Allocator Allocator;
 typedef Allocator* allocator_create(void* memory, size_t size);
 typedef void allocator_destroy(Allocator* allocator);
 typedef void* allocator_alloc(Allocator* allocator, size_t size);
