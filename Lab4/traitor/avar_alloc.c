@@ -8,7 +8,7 @@ struct Allocator {
 };
 
 Allocator* allocator_create(void *const memory, const size_t size) {
-    return NULL; // Заглушка
+    return NULL;
 }
 
 void allocator_destroy(Allocator *const allocator) {}
