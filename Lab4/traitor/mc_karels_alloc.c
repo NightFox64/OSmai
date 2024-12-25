@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdint.h>
 
-// Определения для классов размеров
 #define MAX_CLASSES 10
 #define PAGE_SIZE 4096
 
