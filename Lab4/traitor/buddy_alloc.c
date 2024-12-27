@@ -100,7 +100,7 @@ void allocator_free(Allocator *const allocator, void *const memory) {
             allocator->bitmap[index] = 0;
             return;
         }
-        block_size <<= 1;
+        block_size *= 2;
         index /= 2;
     }
 }
